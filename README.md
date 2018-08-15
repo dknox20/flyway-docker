@@ -10,23 +10,18 @@ This is the official repository for [Flyway Command-line](https://flywaydb.org/d
 
 The following tags are officially supported:
 
--	[`5.1.4`, `5.1`, `5`, `latest` (*Dockerfile*)](https://github.com/flyway/flyway-docker/blob/master/Dockerfile)
--	[`5.1.4-alpine`, `5.1-alpine`, `5-alpine`, `latest-alpine` (*alpine/Dockerfile*)](https://github.com/flyway/flyway-docker/blob/master/alpine/Dockerfile)
--	[`5.0.7`, `5.0`  (*Dockerfile*)](https://github.com/flyway/flyway-docker/blob/master/Dockerfile)
--	[`5.0.7-alpine`, `5.0-alpine` (*alpine/Dockerfile*)](https://github.com/flyway/flyway-docker/blob/master/alpine/Dockerfile)
--	[`4.2.0`, `4.2`, `4` (*Dockerfile*)](https://github.com/flyway/flyway-docker/blob/master/Dockerfile)
--	[`4.2.0-alpine`, `4.2-alpine`, `4-alpine` (*alpine/Dockerfile*)](https://github.com/flyway/flyway-docker/blob/master/alpine/Dockerfile)
+-	[5.1.4, alpine-5.1.4, redshift-5.1.4]
 
 ## Supported Volumes
 
-To make it easy to run Flyway the way you want to, the following volumes are supported: 
+To make it easy to run Flyway the way you want to, the following volumes are supported:
 
 Volume | Usage
 -------|------
-`/flyway/conf` | Directory containing a `flyway.conf` [configuration file](https://flywaydb.org/documentation/commandline/#configuration) 
-`/flyway/drivers` | Directory containing the [JDBC driver for your database](https://flywaydb.org/documentation/commandline/#jdbc-drivers) 
-`/flyway/sql` | The SQL files that you want Flyway to use (for [SQL-based migrations](https://flywaydb.org/documentation/migration/sql)) 
-`/flyway/jars` | The jars files that you want Flyway to use (for [Java-based migrations](https://flywaydb.org/documentation/migration/java)) 
+`/flyway/conf` | Directory containing a `flyway.conf` [configuration file](https://flywaydb.org/documentation/commandline/#configuration)
+`/flyway/drivers` | Directory containing the [JDBC driver for your database](https://flywaydb.org/documentation/commandline/#jdbc-drivers)
+`/flyway/sql` | The SQL files that you want Flyway to use (for [SQL-based migrations](https://flywaydb.org/documentation/migration/sql))
+`/flyway/jars` | The jars files that you want Flyway to use (for [Java-based migrations](https://flywaydb.org/documentation/migration/java))
 
 ## Getting started
 
@@ -56,7 +51,7 @@ CREATE TABLE MyTable (
 ```
 
 Now run the image with the volume mapped:
-                                                             
+
 `docker run --rm -v /my/sqldir:/flyway/sql boxfuse/flyway -url=jdbc:h2:mem:test -user=sa migrate`
 
 ## Adding a config file
@@ -73,12 +68,12 @@ flyway.user=sa
 ```
 
 Now run the image with that volume mapped as well:
-            
+
 `docker run --rm -v /my/sqldir:/flyway/sql -v /my/confdir:/flyway/conf boxfuse/flyway migrate`
 
 ## Adding a JDBC driver
 
-Flyway ships by default with drivers for 
+Flyway ships by default with drivers for
 
 - SQL Server
 - MySQL
@@ -98,19 +93,19 @@ can do so using the `flyway/drivers` volume.
 Create a directory and drop for example the Oracle JDBC driver (`ojdbc8.jar`) in there.
 
 You can now let Flyway make use of it my mapping that volume as well:
-            
+
 `docker run --rm -v /my/sqldir:/flyway/sql -v /my/confdir:/flyway/conf -v /my/driverdir:/flyway/drivers boxfuse/flyway migrate`
 
 ## Adding Java-based migrations and callbacks
 
-To pass in Java-based migrations and callbacks you can use the `flyway/jars` volume. 
+To pass in Java-based migrations and callbacks you can use the `flyway/jars` volume.
 
 ### Example
 
 Create a directory and drop for a jar with your Java-based migrations in there.
 
 You can now let Flyway make use of it my mapping that volume as well:
-            
+
 `docker run --rm -v /my/sqldir:/flyway/sql -v /my/confdir:/flyway/conf -v /my/jardir:/flyway/jars boxfuse/flyway migrate`
 
 ## Docker Compose
@@ -139,5 +134,5 @@ services:
       - 3306:3306
 ```
 
-Run `docker-compose up -d db`, wait a minute for MySQL to be initialized (or tail logs with `docker-compose logs -f`) 
+Run `docker-compose up -d db`, wait a minute for MySQL to be initialized (or tail logs with `docker-compose logs -f`)
 then run `docker-compose up flyway`.

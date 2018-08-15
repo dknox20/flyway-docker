@@ -9,6 +9,8 @@ RUN curl -L https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLY
   && rm flyway-commandline-${FLYWAY_VERSION}.tar.gz \
   && ln -s /flyway/flyway /usr/local/bin/flyway
 
+RUN curl 'https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.16.1027/RedshiftJDBC42-1.2.16.1027.jar' -o /flyway/drivers/RedshiftJDBC42.jar
+
 ADD ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

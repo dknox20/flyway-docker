@@ -12,5 +12,7 @@ RUN apk --no-cache add openssl \
   && sed -i 's/bash/sh/' /flyway/flyway \
   && ln -s /flyway/flyway /usr/local/bin/flyway
 
-ENTRYPOINT ["flyway"]
-CMD ["-?"]
+ADD ./docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["sh"]
